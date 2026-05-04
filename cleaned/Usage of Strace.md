@@ -3,8 +3,11 @@
 ### Concept
 `strace` is a diagnostic, debugging, and instructional user-space utility for Linux. It is used to monitor and record the system calls made by a process and the signals it receives.
 
+![Strace Syscall Summary Output](../src/files/019d84be-96b4-74d5-abbf-3de45bd04697/image.png)
+
 ### Key Points
 - **System Call Interception**: `strace` intercepts syscalls before they enter the kernel, allowing you to see arguments and return values.
+...
 - **Filtering**: You can filter for specific syscalls (e.g., `-e open,read`) to reduce output noise.
 - **Output Redirection**: Syscall logs are sent to `stderr` by default; use `-o` to save to a file.
 - **Process Attachment**: You can trace an already running process by specifying its PID with `-p`.

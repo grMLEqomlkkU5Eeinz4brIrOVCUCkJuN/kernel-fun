@@ -11,7 +11,7 @@ Linux provides a suite of tools for interacting with kernel modules, allowing us
 - **modinfo**: Displays metadata for a module, including its description, author, license, and parameters.
 - **depmod**: Analyzes all modules in `/lib/modules/$(uname -r)` and generates dependency files.
 
-![Modinfo Command Output](../files/019dd79b-54b0-7371-85ea-9994f19caadb/image.png)
+![Modinfo Command Output](../src/files/019dd79b-54b0-7371-85ea-9994f19caadb/image.png)
 
 ### Example
 **Handling Module Dependencies:**
@@ -29,7 +29,7 @@ sudo rmmod -f <module_name>   # Use with extreme caution; can cause kernel panic
 - **Usage Count**: `lsmod` shows a "Used by" count. A module with a non-zero count cannot be removed by `rmmod` without forcing.
 - **Modprobe vs Insmod**: Always prefer `modprobe` for daily use; `insmod` is primarily used during development.
 
-![Modprobe and Dependency Resolution](../files/019dd7be-47ff-765c-b4e1-4837bd93fa71/image.png)
+![Modprobe and Dependency Resolution](../src/files/019dd7be-47ff-765c-b4e1-4837bd93fa71/image.png)
 
 ### Questions
 - How does `modprobe` handle module parameters defined in `/etc/modprobe.d/`?

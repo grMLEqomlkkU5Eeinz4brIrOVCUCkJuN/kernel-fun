@@ -3,7 +3,7 @@
 ### Concept
 Device files (or device nodes) are special files located in the filesystem that allow user-space applications to communicate with kernel-space device drivers. They provide a standardized interface for I/O operations using standard file system calls.
 
-![Device Node Identification](../files/019d85a1-49c4-700b-b7ca-f264cf33fd3e/image.png)
+![Device Node Identification](../src/files/019d85a1-49c4-700b-b7ca-f264cf33fd3e/image.png)
 
 ### Key Points
 - **Location**: Typically found in `/dev`.
@@ -34,7 +34,7 @@ mknod /home/user/my_disk b 8 1
 - **Fundamental Nodes**: Crucial nodes like `/dev/null`, `/dev/zero`, and `/dev/console` are created by the kernel very early in the boot process via `devtmpfs`.
 - **Loop Devices**: Virtual block devices that allow a file to be mounted as a filesystem (e.g., `/dev/loop0`).
 
-![Kernel Driver Registration](../files/019d85a4-38f6-7237-804b-cc11c3a657cb/image.png)
+![Kernel Driver Registration](../src/files/019d85a4-38f6-7237-804b-cc11c3a657cb/image.png)
 
 ### Questions
 - How does the kernel manage Major number allocation to prevent conflicts between different vendors?

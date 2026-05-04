@@ -3,9 +3,12 @@
 ### Concept
 System calls are the standardized interface through which user-space programs request services from the Linux kernel. They transition the CPU from restricted user mode to privileged kernel mode to perform tasks like file operations, process creation, and network communication.
 
+![Syscall Interface and Registers](../src/files/019d84e3-364c-76bd-8365-f39261bc65d7/image.png)
+
 ### Key Points
 - **Standard Interface**: Approximately 550 system calls exist in the modern Linux kernel.
 - **UAPI (User API)**: Headers like `include/uapi/asm-generic/unistd.h` define syscall numbers. Architecture-independent mappings (e.g., `read` mapped to 63) aim for cross-architecture consistency.
+...
 - **Invocation**:
     - Performed via the `syscall` instruction on x86-64.
     - Parameters are passed via registers (e.g., `rax` for syscall number, `rdi`, `rsi`, `rdx` for arguments).

@@ -3,7 +3,7 @@
 ### Concept
 The bootloader (e.g., GRUB) is the first software that runs after the BIOS/UEFI. Its primary role is to load the kernel image and initial RAM disk (initrd) into memory, set up boot parameters, and transfer execution control to the kernel.
 
-![GRUB Loading Sequence](../files/019dae3c-321b-7354-8919-127886c95f80/image.png)
+![GRUB Loading Sequence](../src/files/019dae3c-321b-7354-8919-127886c95f80/image.png)
 
 ### Key Points
 - **GRUB (Grand Unified Bootloader)**:
@@ -16,7 +16,7 @@ The bootloader (e.g., GRUB) is the first software that runs after the BIOS/UEFI.
     - BIOS/UEFI -> GRUB -> Kernel (uncompressed) -> `start_kernel()` -> PID 1 (`init`).
 - **Initramfs**: A temporary filesystem that provides the drivers needed to mount the "real" root filesystem.
 
-![Kernel Parameters Configuration](../files/019dae49-6ccc-7716-a858-b48e9cc13390/image.png)
+![Kernel Parameters Configuration](../src/files/019dae49-6ccc-7716-a858-b48e9cc13390/image.png)
 
 ### Example
 **Modifying Boot Parameters in GRUB:**
@@ -32,7 +32,7 @@ cat /proc/cmdline
 - **PID 0 (Idle Task)**: The kernel creates an "idle" thread (swapper) before spawning the first user-space process.
 - **Crashkernel**: A reserved memory area for a secondary kernel that can capture memory state in the event of a system crash.
 
-![Bootloader to Kernel Handover](../files/019dae56-8bd1-743d-aa38-c72d7008ac2d/image.png)
+![Bootloader to Kernel Handover](../src/files/019dae56-8bd1-743d-aa38-c72d7008ac2d/image.png)
 
 ### Questions
 - How does the kernel handle boot parameter registration via the `__setup()` macro?

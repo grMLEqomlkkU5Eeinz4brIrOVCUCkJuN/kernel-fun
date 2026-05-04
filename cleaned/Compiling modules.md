@@ -3,7 +3,7 @@
 ### Concept
 Compiling a Linux kernel module involves using the kernel's build system (kbuild) to create a `.ko` file. This process requires the module source code to be compiled against the headers and configuration of the target kernel.
 
-![Module Build Environment](../files/019dd7f7-30c5-736b-aa3a-af1a9b919b7b/image.png)
+![Module Build Environment](../src/files/019dd7f7-30c5-736b-aa3a-af1a9b919b7b/image.png)
 
 ### Key Points
 - **Kernel Build System**: Modules must be compiled using the same compiler and configuration as the kernel they are intended for to ensure ABI compatibility.
@@ -11,7 +11,7 @@ Compiling a Linux kernel module involves using the kernel's build system (kbuild
 - **Makefile Requirements**: A kernel module Makefile differs from a standard C Makefile; it must define `obj-m` to tell the kernel build system which objects to build as modules.
 - **Symbol Check**: During compilation, the build system checks for symbol dependencies and generates a `.mod.c` file and other metadata.
 
-![Module Compilation Object Files](../files/019ddbff-21ad-7144-96ac-ac67098ce5b2/image.png)
+![Module Compilation Object Files](../src/files/019ddbff-21ad-7144-96ac-ac67098ce5b2/image.png)
 
 ### Example
 **Minimal Makefile for a Kernel Module:**

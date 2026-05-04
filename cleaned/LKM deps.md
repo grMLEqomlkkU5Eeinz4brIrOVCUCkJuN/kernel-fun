@@ -3,7 +3,7 @@
 ### Concept
 Kernel modules often rely on functions or symbols exported by other modules. The kernel build system and user-space tools must track these dependencies to ensure that modules are loaded in the correct order.
 
-![Symbol Dependency Hierarchy](../files/019dd7d6-2ace-7304-bef0-34ec5510134f/image.png)
+![Symbol Dependency Hierarchy](../src/files/019dd7d6-2ace-7304-bef0-34ec5510134f/image.png)
 
 ### Key Points
 - **Symbol Exporting**: Modules use `EXPORT_SYMBOL()` or `EXPORT_SYMBOL_GPL()` to make their functions available to other modules.
@@ -11,7 +11,7 @@ Kernel modules often rely on functions or symbols exported by other modules. The
 - **Used By**: The `lsmod` output indicates which modules are currently using a specific module's exported symbols.
 - **Loading Order**: If Module B depends on Module A, the kernel must load Module A before Module B can resolve its symbols and initialize.
 
-![Inspecting Module Dependencies](../files/019dd7d8-342e-73fe-8d0d-97ade689d3a0/image.png)
+![Inspecting Module Dependencies](../src/files/019dd7d8-342e-73fe-8d0d-97ade689d3a0/image.png)
 
 ### Example
 **Inspecting Dependencies:**

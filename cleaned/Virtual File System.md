@@ -3,7 +3,7 @@
 ### Concept
 The Virtual File System (VFS) is a kernel abstraction layer that allows user space to interact with various data sources (physical disks, network protocols, or kernel state) using standard file I/O system calls. Virtual filesystems like `/proc` and `/sys` generate their content dynamically in RAM when accessed.
 
-![VFS and Process Information](../files/019d84ad-e05e-731a-8a9e-789038a3b0eb/image.png)
+![VFS and Process Information](../src/files/019d84ad-e05e-731a-8a9e-789038a3b0eb/image.png)
 
 ### Key Points
 - **/proc (procfs)**:
@@ -34,7 +34,7 @@ echo 1 > /sys/class/backlight/intel_backlight/brightness  # Adjust hardware stat
 - **Safety**: Do not write to files in `/dev` unless their function is known (e.g., `dd` to a disk node can destroy data).
 - **VFS Abstraction**: The kernel translates generic calls (`read()`) into filesystem-specific or driver-specific operations.
 
-![Sysfs Hierarchy and Device Links](../files/019d84f1-220c-746e-9ee8-31d1cb06ab73/image.png)
+![Sysfs Hierarchy and Device Links](../src/files/019d84f1-220c-746e-9ee8-31d1cb06ab73/image.png)
 
 ### Questions
 - What are the technical differences between `ramfs`, `tmpfs`, and the mechanisms used by `procfs`?
