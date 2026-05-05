@@ -11,8 +11,12 @@ Device files (or device nodes) are special files located in the filesystem that 
     - **Character Devices (c)**: Accessed as a stream of characters (e.g., keyboards, mice, serial ports).
     - **Block Devices (b)**: Accessed in fixed-size blocks, allowing for random access (e.g., hard drives, NVMe drives).
 - **Identification**:
-    - **Major Number**: Identifies the specific driver associated with the device.
-    - **Minor Number**: Identifies a specific instance or partition managed by that driver.
+    - **Major Number**: Identifies the specific driver associated with the device. **Major 8** is reserved for SCSI disk devices (including SATA, USB storage, and virtual disks).
+    - **Minor Number**: Identifies a specific instance or partition. For Major 8, each disk gets 16 minors (e.g., `/dev/sda` is 8:0, `/dev/sda1` is 8:1).
+- **mknod Implementation**:
+    - The `mknod` syscall (`sys_mknodat`) creates the inode for a device node.
+    - It records the Major/Minor numbers in the filesystem metadata (`i_rdev`).
+    - **Privilege**: Requires `CAP_MKNOD` capability.
 - **Devtmpfs**: A virtual filesystem managed by the kernel that automatically creates and manages these nodes at boot.
 
 ### Example
@@ -25,12 +29,13 @@ ls -l /dev/sda1
 
 **Creating a Device Node Manually:**
 ```bash
-mknod /home/user/my_disk b 8 1
-# This node will act identically to /dev/sda1 if the driver supports it.
+sudo mknod /tmp/my_disk b 8 1
+# This node will act identically to /dev/sda1.
 ```
 
 ### Notes / Observations
-- **Major/Minor Combination**: Modern kernels use a more complex combination system to uniquely identify drivers as the number of available drivers has grown.
+- **Deferred Driver Attachment**: `mknod` only creates the entry in the filesystem; the driver itself is not "loaded" until a process actually `open()`s the node.
+- **Major Number 8 Allocation**: Disk 1 (`sda`) uses minors 0-15; Disk 2 (`sdb`) uses 16-31, and so on up to 255.
 - **Fundamental Nodes**: Crucial nodes like `/dev/null`, `/dev/zero`, and `/dev/console` are created by the kernel very early in the boot process via `devtmpfs`.
 - **Loop Devices**: Virtual block devices that allow a file to be mounted as a filesystem (e.g., `/dev/loop0`).
 

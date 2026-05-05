@@ -1,0 +1,1 @@
+These are my cleaned notes from docmost. It is not yet complete. The cleaned version of the notes are a lot less detailed than what most people would expect.
