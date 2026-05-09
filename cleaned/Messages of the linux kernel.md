@@ -38,6 +38,13 @@ nc -u -l -p 6666
 - **dmesg -w**: Follows the ring buffer in real-time.
 - **Buffer Overwrites**: Because it is a ring buffer, older messages are overwritten when the buffer fills.
 - **Early Boot**: Kernel messages are critical for debugging boot failures before the root filesystem is mounted.
+- **DebugFS Mount Process**: If `/sys/kernel/debug` appears empty, debugfs is not mounted. Troubleshooting steps:
+    1. **Check if the kernel supports debugfs**: `grep DEBUG_FS /boot/config-$(uname -r)` should show `CONFIG_DEBUG_FS=y`.
+    2. **Mount manually**: `sudo mount -t debugfs debugfs /sys/kernel/debug`.
+    3. **Verify**: `ls /sys/kernel/debug/` should now show entries like `tracing/`, `usb/`, `block/`, etc.
+    4. **Persist across reboots**: Add `debugfs /sys/kernel/debug debugfs defaults 0 0` to `/etc/fstab`.
+    5. **Systemd systems**: Most distributions auto-mount debugfs via `systemd`'s `sys-kernel-debug.mount` unit. Check with `systemctl status sys-kernel-debug.mount`.
+    6. **Security**: DebugFS exposes kernel internals. On production systems, it may be intentionally disabled or mounted with restricted permissions (`mode=0700`). The kernel parameter `debugfs=off` disables it entirely.
 
 ![Systemd-journald and Kernel Logging](../src/files/019d84eb-b428-7166-8dd8-52f4275ca1f3/image.png)
 

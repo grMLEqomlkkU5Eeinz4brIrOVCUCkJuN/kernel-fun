@@ -38,6 +38,42 @@ A collection of practical tasks designed to reinforce understanding of kernel th
 
 ![Sysfs Vendor Identification](../src/files/019d84ed-86af-703f-a960-87ccd1aa5ea9/image.png)
 
+### Challenge: Automated Sysfs Vendor Extraction
+- **Task**: Script the extraction of vendor and hardware identity information from `sysfs`.
+- **Script**:
+    ```bash
+    #!/bin/bash
+    echo "=== System Identity ==="
+    echo "Vendor:       $(cat /sys/class/dmi/id/sys_vendor 2>/dev/null)"
+    echo "Product:      $(cat /sys/class/dmi/id/product_name 2>/dev/null)"
+    echo "Board:        $(cat /sys/class/dmi/id/board_vendor 2>/dev/null) $(cat /sys/class/dmi/id/board_name 2>/dev/null)"
+    echo "BIOS:         $(cat /sys/class/dmi/id/bios_vendor 2>/dev/null) $(cat /sys/class/dmi/id/bios_version 2>/dev/null)"
+    echo ""
+    echo "=== PCI Devices ==="
+    for dev in /sys/bus/pci/devices/*/; do
+        vendor=$(cat "$dev/vendor" 2>/dev/null)
+        device=$(cat "$dev/device" 2>/dev/null)
+        class=$(cat "$dev/class" 2>/dev/null)
+        driver=$(basename "$(readlink "$dev/driver" 2>/dev/null)" 2>/dev/null)
+        printf "  %s  vendor=%s device=%s class=%s driver=%s\n" \
+            "$(basename "$dev")" "$vendor" "$device" "$class" "${driver:-none}"
+    done
+    echo ""
+    echo "=== Block Devices ==="
+    for blk in /sys/block/*/; do
+        name=$(basename "$blk")
+        model=$(cat "$blk/device/model" 2>/dev/null | xargs)
+        vendor=$(cat "$blk/device/vendor" 2>/dev/null | xargs)
+        size_sectors=$(cat "$blk/size" 2>/dev/null)
+        size_gb=$(( size_sectors * 512 / 1073741824 ))
+        [ -n "$model" ] && printf "  %s: %s %s (%d GB)\n" "$name" "$vendor" "$model" "$size_gb"
+    done
+    ```
+- **Key Paths**:
+    - `/sys/class/dmi/id/`: DMI/SMBIOS system identity fields.
+    - `/sys/bus/pci/devices/*/vendor`: PCI vendor ID (hex).
+    - `/sys/block/*/device/model`: Storage device model string.
+
 ### Challenge: Dmesg and Command Line
 - **Task**: Retrieve boot-time parameters.
 - **Command**: `cat /proc/cmdline`.
